@@ -17,10 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home/{$id}', function ($id) {
+	$users = DB::table('users')->find($id);
+	dd($users);
+    return view('home', compact('users'));	
+});
+
+Route::get('/home', function () {
+	$commetns = App\Commetns::all();
+    return view('users.index', compact('commetns'));	
+});
+
+
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/users', 'HomeController@index');

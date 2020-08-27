@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Оставdить комментарий') }}</div>
+                <div class="card-header">{{ __('Оставить комментарий') }} {{ $users->name }} </div>
                 <div class="card-body">
                     <form method="post" action="">
                         {{ csrf_field() }}
