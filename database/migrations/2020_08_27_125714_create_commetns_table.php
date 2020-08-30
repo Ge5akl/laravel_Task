@@ -16,6 +16,7 @@ class CreateCommetnsTable extends Migration
         Schema::create('commetns', function (Blueprint $table) {
             $table->id();
             $table->text("User_id");
+            $table->text("Object_id");
             $table->text("Body");
             $table->timestamps();
         });

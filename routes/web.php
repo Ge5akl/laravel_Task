@@ -13,23 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home/{$id}', function ($id) {
-	$users = DB::table('users')->find($id);
-	dd($users);
-    return view('home', compact('users'));	
-});
-
-Route::get('/home', function () {
-	$commetns = App\Commetns::all();
-    return view('users.index', compact('commetns'));	
-});
-
 
 
 Auth::routes();
-
-Route::get('/users', 'HomeController@index');
+Route::post('/home','HomeController@create');
+Route::get('/', 'HomeController@showAuthUserPost');	
+//Route::get('/home/{user}', 'HomeController@showUsersPost');
+Route::get('/home/{user}', 'HomeController@showOutherUserComment');
+Route::post('/home/{user}', 'HomeController@createOutherUserComment');
+Route::get('/home', 'HomeController@showAuthUserComments');
