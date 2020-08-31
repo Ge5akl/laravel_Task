@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-Route::post('/home','HomeController@create');
+Route::post('/home','CommentController@create');
 Route::get('/', 'HomeController@showAuthUserPost');	
 //Route::get('/home/{user}', 'HomeController@showUsersPost');
-Route::get('/home/{user}', 'HomeController@showOutherUserComment');
-Route::post('/home/{user}', 'HomeController@createOutherUserComment');
-Route::get('/home', 'HomeController@showAuthUserComments');
+Route::get('/home/dellCommet/{id}', 'CommentController@deleteAuthUserComments');
+Route::get('/user/{user}', 'CommentController@showOutherUserComment');
+Route::post('/user/{user}/', 'CommentController@createOutherUserComment');
+Route::get('/home', 'CommentController@showAuthUserComments');
+Route::get('/home/comments', 'CommentController@showAllAuthUserComments');
+Route::get('/user/creteComments/{id}', 'CommentController@createAnswerComments');

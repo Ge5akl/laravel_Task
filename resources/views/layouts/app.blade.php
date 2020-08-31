@@ -61,6 +61,7 @@
                                         {{ __('Logout') }}
                                     </a>
                                         <a class="dropdown-item" href="{{ url('/') }}">Список пользователей</a>
+                                         <a class="dropdown-item" href="{{ url('/home/comments') }}">Список комментариев</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

@@ -86,7 +86,7 @@
 
                       @forelse ($user as $Usr)
                     <div class="card">
-                     <div class="card-header"><a href="/home/{{$Usr->id}}" >{{ $Usr->name }}</a> </div>
+                     <div class="card-header"><a href="/user/{{$Usr->id}}" >{{ $Usr->name }}</a> </div>
                     @empty
                 <p>Нет поьзователей</p>
                 @endforelse

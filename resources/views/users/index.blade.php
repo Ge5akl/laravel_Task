@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Оставить комментарий') }}</div>
                 <div class="card-body">
                      @auth
-                    <form method="post" action="{{action('HomeController@create')}}">
+                    <form method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Комментарий</label>
@@ -19,15 +19,15 @@
                         </div>
                     </form>
                      @endauth
-                     @forelse ($commetns as $commetn)
-                     <div class="card-header">{{ __('Коментарий от') }} </div>
+                     @forelse ($users as $user)
+                     <div class="card-header">{{ __('Коментарий от') }} {{$user->name}} </div>
                       <div class="card-body">
-                          {{ $commetn->Body }}
+                          {{ $user->Body }}    {{ $user->bodyChildComment}}
                           <div class="form-group">
-                            <button type="submit" class="btn btn-primary col-md 6">Удалить</button>
+                            <a href="home/dellCommet/{{$user->id}}"><button type="submit" class="btn btn-primary col-md 6">Удалить</button></a>
                         </div>
                          <div class="form-group">
-                            <button type="submit" class="btn btn-primary col-md 6">Показать комментарий</button>
+                            <a href="home/addAnsw/{{$user->id}}"><button type="submit" class="btn btn-primary col-md 6">Ответить</button></a>
                         </div>
                       </div>
                         @if (session('status'))
