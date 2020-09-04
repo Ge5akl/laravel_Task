@@ -19,26 +19,7 @@
                         </div>
                     </form>
                      @endauth
-                     @forelse ($users as $user)
-                     <div class="card-header">{{ __('Коментарий от') }} {{$user->name}} </div>
-                      <div class="card-body">
-                          {{ $user->Body }}    {{ $user->bodyChildComment}}
-                          <div class="form-group">
-                            <a href="home/dellCommet/{{$user->id}}"><button type="submit" class="btn btn-primary col-md 6">Удалить</button></a>
-                        </div>
-                         <div class="form-group">
-                            <a href="home/addAnsw/{{$user->id}}"><button type="submit" class="btn btn-primary col-md 6">Ответить</button></a>
-                        </div>
-                      </div>
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                            </div>  
-                    @endif
-                    @empty
-                <p>Нет комментариев</p>
-                @endforelse
-            </div>
+                  @include('users.commentsShow')
         </div>
     </div>
 </div>

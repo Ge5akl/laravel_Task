@@ -24,4 +24,7 @@ Route::get('/user/{user}', 'CommentController@showOutherUserComment');
 Route::post('/user/{user}/', 'CommentController@createOutherUserComment');
 Route::get('/home', 'CommentController@showAuthUserComments');
 Route::get('/home/comments', 'CommentController@showAllAuthUserComments');
-Route::get('/user/creteComments/{id}', 'CommentController@createAnswerComments');
+Route::get('home/creteComments/{Object_id}/{id}', 'CommentController@createAnswerComments');
+Route::post('home/creteComments/{Object_id}/{id}', 'CommentController@createAnswerComments');
+Route::get('/home/comments/com', 'CommentController@getOuhterComment');
+

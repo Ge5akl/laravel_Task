@@ -8,19 +8,51 @@ use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 
 class CommentController extends Controller
 {
       public function showAuthUserComments(Request $request){
         $userId=Auth::id();
-        $users = user::join('commetns', 'users.id', '=', 'commetns.User_id')
-            ->select('users.*', 'commetns.*')
-            ->where('Object_id', '=', $userId)
-            ->get();
-        $commetns = commetns::where('Object_id', '=', $userId)->get();
-        return view('users.index', compact('users'));    
+   		$count = App\Commetns::count();
+		$skip = 0;
+		$limit = 5;
+        $user=App\Commetns::where('object_id', $userId)->skip($skip)->take($limit)->with('parent', 'user')->get();
+        $commentdd = json_decode($user, true);
+        //dump($commentdd);
+       	//dump($commentdd);	
+            	//$user->comments()->get();
+          	 //$comment = App\User::->find($User_Id)->comments()->with('parent');
+        	
+          	/*$comments=App\User::find(1)->with('comments.parent')->get();
+          	$comment = json_decode($comments, true);
+          	$ddcomment = json_decode(App\User::find($userId)->with('comments.parent')->get(), true);
+  
+          	*/
+          	
+           return view('users.index', compact('commentdd'));   
+           dump(Request::json('Data')); 
     } 
+
+    public function getOuhterComment(Request $request){
+    	 $userId=Auth::id();
+    	 $count = App\Commetns::count();
+		$skip = 5;
+		$limit = $count - $skip;
+    	 $user=App\Commetns::where('object_id', $userId)->skip($skip)->take($limit)->with('parent', 'user')->get();
+    	  $commentdd = json_decode($user, true);
+
+    	 
+
+
+    	 return view('users.pagination_data',compact('commentdd'));
+
+
+    	 //return view('users.pagination_data', compact('commentdd'));
+    }
+
+
 
 
      public function create(Request $request)
@@ -57,10 +89,11 @@ class CommentController extends Controller
             ->select('users.*', 'commetns.*')
             ->where('Object_id', '=', $id)
             ->get();
-            
-        $commetns = commetns::where('Object_id', '=', $id)->get();
-        return view('users.show', compact('users'), compact('currentUserid')); 
-
+         $user=App\Commetns::where('object_id', $id)->with('parent', 'user')->get();
+         //$user=App\User::with('comments.parent', 'comments.user')->where('id', $id)->get();
+          $commentdd = json_decode($user, true);
+        // dump($commentdd);
+        return view('users.show', compact('commentdd'), compact('currentUserid')); 	
     }
 
      public function deleteAuthUserComments(Request $request, $id){
@@ -73,6 +106,8 @@ class CommentController extends Controller
              return redirect()->back();
         }
     }
+
+    
 
    	public function showAllAuthUserComments(Request $request){
    		 if(Auth::check()){
@@ -88,7 +123,17 @@ class CommentController extends Controller
         }
    	}
 
-   	public function createAnswerComments(Request $request, $id){
+   	public function createAnswerComments(Request $request, $Object_id, $id){
+
+   		 $bodyComments = $request->input('CommentBody');
+        $User_Id=Auth::id();
+        if(isset($_POST['button'])){
+         commetns::insert(
+            ['Body' => $bodyComments, 'User_Id' =>$User_Id, 'Object_id' => $Object_id, 'parent_id' => $id]
+        );
+         return redirect()->back();
+     }
+   		return view('users.addAnswerComment');
 
    	}
 }

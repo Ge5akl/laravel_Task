@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommetnsTable extends Migration
+class CreateChildCommetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateCommetnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('commetns', function (Blueprint $table) {
-            $table->id();
-            $table->text("User_id");
-            $table->text("Object_id");
-            $table->text("parent_id")->nullable();
-            $table->text("Body");
+        Schema::create('child_commet', function (Blueprint $table) {
+            $table->text('child_id');
+            $table->text('user_id_child');
+             $table->text("child_body")->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateCommetnsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commetns');
+        Schema::dropIfExists('child_commet');
     }
 }

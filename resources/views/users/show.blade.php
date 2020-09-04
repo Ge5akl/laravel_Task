@@ -20,19 +20,8 @@
                         </div>
                     </form>
                      @endauth
-                     @forelse ($users as $user)
-                     <div class="card-header">{{ __('Коментарий от') }} {{ $user->name}}</div>
-                      <div class="card-body">
-                          {{ $user->Body }}
-                      </div>
-                          @if(optional(Auth::user())->id == $user->User_id)
-                            <div class="form-group">
-                            <a href="/user/dellCommet/{{$user->id}}"><button type="submit" class="btn btn-primary col-md 6">Удалить</button></a>
-                        </div>
-                        @endif  
-                    @empty
-                <p>Нет комментариев</p>
-                @endforelse
+                 
+            @include('users.commentsShow')
             </div>
             </div>
         </div>
